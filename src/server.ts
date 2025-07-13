@@ -4,6 +4,7 @@ import { getEnvVar } from "./utils/env.utils";
 import { serverMiddleware } from "./middleware/serverMiddleware";
 import serverRouter from "./router/server.router";
 import SingletonDatabaseConnection from "./database/connect";
+import gameLogger from "./libs/logger.libs";
 export class Server{
     private static instance: Server;
     private port: number= parseInt(getEnvVar("PORT") as string, 10) || 3000;
@@ -35,11 +36,11 @@ export class Server{
             await this.setupMiddleware();
             await this.setupRoutes();
             await this.connectDatabase();
-            console.log("Database Connected Sucessfully");
+            gameLogger.info("Database Connected Sucessfully");
             
-            this.app.listen(this.port, () => { console.log(`Server is running on port ${this.port}`) })
+            this.app.listen(this.port, () => { gameLogger.info(`Server is running on port ${this.port}`) })
         } catch (err) {
-            console.log(`Server failed starting at port ${this.port}`)
+            gameLogger.error(`Server failed starting at port ${this.port}`)
         }
         }
     }

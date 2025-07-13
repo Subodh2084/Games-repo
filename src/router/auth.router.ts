@@ -5,6 +5,4 @@ const authRouter = Router();
 authRouter.get("/auth", (req: Request, res: Response) => res.send("Hello"))
 
 
-
-
 export default authRouter;
